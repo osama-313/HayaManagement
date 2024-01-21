@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+
+spring:
+  datasource:
+    url: ${URL_DB}
+    username: ${username_DB}
+    password: ${password_DB}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+
+
