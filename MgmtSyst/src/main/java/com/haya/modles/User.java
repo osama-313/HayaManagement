@@ -1,7 +1,11 @@
 package com.haya.modles;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity()
@@ -27,6 +31,7 @@ public class User {
     private String email;
 
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name = "age" , nullable = false)
@@ -35,6 +40,8 @@ public class User {
     @JoinColumn(name = "user_role" , nullable = false)
     @ManyToOne
     private Role role;
+
+
 
 
     public User() {
@@ -115,30 +122,4 @@ public class User {
         this.role = role;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User users = (User) o;
-        return id == users.id && age == users.age && Objects.equals(firstName, users.firstName) && Objects.equals(lastName, users.lastName) && Objects.equals(userName, users.userName) && Objects.equals(email, users.email) && Objects.equals(password, users.password) && Objects.equals(role, users.role);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, userName, email, password, age, role);
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", role=" + role +
-                '}';
-    }
 }

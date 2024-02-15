@@ -1,12 +1,16 @@
 package com.haya.service;
 
 import com.haya.modles.AuthenticationResponse;
+import com.haya.modles.Token;
 import com.haya.modles.User;
+import com.haya.repository.TokenRepository;
 import com.haya.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AuthenticationServices {
@@ -19,14 +23,22 @@ public class AuthenticationServices {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationServices(UserRepository repo, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+    private final TokenRepository tokenRepository;
+
+    public AuthenticationServices(UserRepository repo, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, TokenRepository tokenRepository) {
         this.repo = repo;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.tokenRepository = tokenRepository;
     }
 
     public AuthenticationResponse register(User request){
+
+        // check if user already exist. if exist than authenticate the user
+        if(repo.findByUserName(request.getUserName()) == new User()) {
+            return new AuthenticationResponse(null, "User already exist");
+        }
 
         User user = request;
         String encodedPassword = this.passwordEncoder.encode(request.getPassword());
@@ -34,9 +46,11 @@ public class AuthenticationServices {
 
         user = repo.save(user);
 
-        String token = jwtService.generateToken(user);
+        String jwt = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(token);
+        saveUserToken(jwt, user);
+
+        return new AuthenticationResponse(jwt, "User regestration was successful");
     }
 
 
@@ -50,10 +64,35 @@ public class AuthenticationServices {
 
         );
         User user = repo.findByUserName(request.getUserName());
-        String token = jwtService.generateToken(user);
+        String jwt = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(token);
+        revokeAllTokenByUser(user);
+        saveUserToken(jwt, user);
+
+        return new AuthenticationResponse(jwt, "User login was successful");
 
     }
+    private void revokeAllTokenByUser(User user) {
+        List<Token> validTokens = tokenRepository.findAllTokensByUser(user.getId());
+        if(validTokens.isEmpty()) {
+            return;
+        }
+
+        validTokens.forEach(t-> {
+            t.setLoggedOut(true);
+        });
+
+        tokenRepository.saveAll(validTokens);
+    }
+    private void saveUserToken(String jwt, User user) {
+        Token token = new Token();
+        token.setToken(jwt);
+        token.setLoggedOut(false);
+        token.setUser(user);
+        tokenRepository.save(token);
+    }
+
+
+
 
 }
