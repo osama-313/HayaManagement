@@ -1,6 +1,7 @@
-package com.haya.config;
+package com.haya.service;
 
 import com.haya.modles.User;
+import com.haya.repository.UserRepository;
 import com.haya.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,22 +10,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDetailService implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
-    private final UserServices services;
-    @Autowired
-    public UserDetailService(UserServices services) {
-        this.services = services;
+    private final UserRepository reop;
+
+    public UserDetailServiceImpl(UserRepository reop) {
+        this.reop = reop;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User Userinfo = services.findUserByUserName(username);
+        User Userinfo = reop.findByUserName(username);
         if (Userinfo == null) {
             throw new UsernameNotFoundException(username);
         }
-        UserDetails user = org.springframework.security.core.userdetails.User.withUsername(Userinfo.getUserName()).password(Userinfo.getPassword()).authorities(Userinfo.getRole().getRole())
+        UserDetails user = org.springframework.security.core.userdetails.User
+                .withUsername(Userinfo.getUserName())
+                .password(Userinfo.getPassword())
+                .authorities(Userinfo.getRole().getRole())
                 .build();
         return user;
     }

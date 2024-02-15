@@ -8,7 +8,7 @@ public class Resources {
     @Id
     @GeneratedValue(generator = "role_id", strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "role_id", allocationSize = 1)
-    @Column(name = "rold_id" , updatable = false)
+    @Column(name = "Resource_id" , updatable = false)
     private int id;
 
     @Column(name = "url")

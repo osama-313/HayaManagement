@@ -11,11 +11,14 @@ public class Task {
     @Column(name = "task_id" , updatable = false)
     private int id;
 
-    @Column(name = "task", nullable = false)
+    @Column(name = "task")
     private String task;
 
-    @Column(name = "tasksDescribtion", nullable = false)
+    @Column(name = "tasksDescribtion")
     private String taskDescribtion;
+
+    @Column(name = "dueDate")
+    private String dueDate;
 
     @Column(name = "task_status", nullable = false)
     private boolean taskStatus;
@@ -29,15 +32,14 @@ public class Task {
 
     }
 
-    public Task(int id, String task, String taskDescribtion, boolean taskStatus, User user) {
-
+    public Task(int id, String task, String taskDescribtion, String dueDate, boolean taskStatus, User user) {
         this.id = id;
         this.task = task;
         this.taskDescribtion = taskDescribtion;
+        this.dueDate = dueDate;
         this.taskStatus = taskStatus;
         this.user = user;
     }
-
 
     public int getId() {
         return id;
@@ -61,6 +63,14 @@ public class Task {
 
     public void setTaskDescribtion(String taskDescribtion) {
         this.taskDescribtion = taskDescribtion;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
     public boolean isTaskStatus() {

@@ -2,6 +2,8 @@ package com.haya.service;
 
 import com.haya.modles.User;
 import com.haya.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +14,12 @@ public class UserServices {
 
     private UserRepository repo;
 
-    public UserServices(UserRepository reop) {
+    private PasswordEncoder passwordEncoder;
 
-        this.repo = reop;
+
+    public UserServices(UserRepository repo, PasswordEncoder passwordEncoder) {
+        this.repo = repo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // list all users
@@ -22,14 +27,18 @@ public class UserServices {
         return repo.findAll();
     }
 
+
+
     //add a user  (could be used for signup)
     public User insertUser(User user){
 
-        if (user.getRole().getId() == 1){
-            user.getRole().setRole("Admin");
-        }else if (user.getRole().getId() == 2){
-            user.getRole().setRole("User");
-        }
+//        if (user.getRole().getId() == 1){
+//            user.getRole().setRole("Admin");
+//        }else if (user.getRole().getId() == 2){
+//            user.getRole().setRole("User");
+//        }
+        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
 
         return repo.save(user);
     }
@@ -73,7 +82,6 @@ public class UserServices {
 
     // find user by username
     public User findUserByUserName(String userName){
-
         return repo.findByUserName(userName);
     }
 

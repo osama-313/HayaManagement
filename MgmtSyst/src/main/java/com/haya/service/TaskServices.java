@@ -36,6 +36,8 @@ public class TaskServices {
         UpdatedTask.setTask(newTask.getTask());
         UpdatedTask.setTaskDescribtion(newTask.getTaskDescribtion());
         UpdatedTask.setTaskStatus(newTask.isTaskStatus());
+        UpdatedTask.setDueDate(newTask.getDueDate());
+
         UpdatedTask.setUser(newTask.getUser());
 
         return repo.save(UpdatedTask);

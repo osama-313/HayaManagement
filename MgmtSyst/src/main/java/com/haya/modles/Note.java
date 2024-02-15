@@ -13,6 +13,13 @@ public class Note {
     @Column(name = "note_id" , updatable = false)
     private int id;
 
+    @Column(name = "From_to_When" )
+    private String fromToWhen;
+
+
+    @Column(name = "hours" )
+    private int hours;
+
     @Column(name = "note" )
     private String note;
 
@@ -23,11 +30,14 @@ public class Note {
     public Note() {
     }
 
-    public Note(int id, String note, User user) {
+    public Note(int id, String fromToWhen, int hours, String note, User user) {
         this.id = id;
+        this.fromToWhen = fromToWhen;
+        this.hours = hours;
         this.note = note;
         this.user = user;
     }
+
 
     public int getId() {
         return id;
@@ -35,6 +45,22 @@ public class Note {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFromToWhen() {
+        return fromToWhen;
+    }
+
+    public void setFromToWhen(String fromToWhen) {
+        this.fromToWhen = fromToWhen;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
     }
 
     public String getNote() {
@@ -52,4 +78,6 @@ public class Note {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
