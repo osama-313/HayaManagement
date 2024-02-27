@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "notes")
-public class Note {
+public class Commitment {
 
     @Id
     @GeneratedValue(generator = "note_id", strategy = GenerationType.AUTO)
@@ -27,10 +27,10 @@ public class Note {
     @ManyToOne
     private User user;
 
-    public Note() {
+    public Commitment() {
     }
 
-    public Note(int id, String fromToWhen, int hours, String note, User user) {
+    public Commitment(int id, String fromToWhen, int hours, String note, User user) {
         this.id = id;
         this.fromToWhen = fromToWhen;
         this.hours = hours;

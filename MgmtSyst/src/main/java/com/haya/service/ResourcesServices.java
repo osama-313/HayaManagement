@@ -1,6 +1,5 @@
 package com.haya.service;
 
-import com.haya.modles.Note;
 import com.haya.modles.Resources;
 import com.haya.repository.ResourcesRepository;
 import org.springframework.stereotype.Service;

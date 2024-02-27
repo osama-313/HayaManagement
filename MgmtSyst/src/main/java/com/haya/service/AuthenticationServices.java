@@ -37,7 +37,8 @@ public class AuthenticationServices {
 
         // check if user already exist. if exist than authenticate the user
         if(repo.findByUserName(request.getUserName()) == new User()) {
-            return new AuthenticationResponse(null, "User already exist");
+            return new AuthenticationResponse(null, "User already exist",
+                    0,null,null);
         }
 
         User user = request;
@@ -50,7 +51,8 @@ public class AuthenticationServices {
 
         saveUserToken(jwt, user);
 
-        return new AuthenticationResponse(jwt, "User regestration was successful");
+        return new AuthenticationResponse(jwt, "User regestration was successful",
+                user.getId(),user.getFirstName(),user.getLastName());
     }
 
 
@@ -69,9 +71,12 @@ public class AuthenticationServices {
         revokeAllTokenByUser(user);
         saveUserToken(jwt, user);
 
-        return new AuthenticationResponse(jwt, "User login was successful");
+
+        return new AuthenticationResponse(jwt, "User login was successful",
+                user.getId(),user.getFirstName(),user.getLastName());
 
     }
+
     private void revokeAllTokenByUser(User user) {
         List<Token> validTokens = tokenRepository.findAllTokensByUser(user.getId());
         if(validTokens.isEmpty()) {
@@ -84,6 +89,7 @@ public class AuthenticationServices {
 
         tokenRepository.saveAll(validTokens);
     }
+
     private void saveUserToken(String jwt, User user) {
         Token token = new Token();
         token.setToken(jwt);

@@ -1,7 +1,7 @@
 package com.haya.service;
 
 
-import com.haya.modles.Note;
+import com.haya.modles.Commitment;
 import com.haya.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +18,19 @@ public class NoteServices {
 
 
     // get all notes
-    public List<Note> findAllNotes(){
+    public List<Commitment> findAllNotes(){
         return repo.findAll();
     }
 
     // create/insert notes
-    public Note insertNote(Note note){
+    public Commitment insertNote(Commitment note){
         return repo.save(note);
     }
 
     //edit/update note
-    public Note updateNote(int id, Note newNote){
+    public Commitment updateNote(int id, Commitment newNote){
 
-        Note updatedNote = new Note();
+        Commitment updatedNote = new Commitment();
 
         updatedNote = repo.findById(id).orElse(null);
 
