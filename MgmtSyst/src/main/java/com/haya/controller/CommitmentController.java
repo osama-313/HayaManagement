@@ -1,20 +1,21 @@
 package com.haya.controller;
 
 import com.haya.modles.Commitment;
-import com.haya.service.NoteServices;
+import com.haya.service.CommitmentServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 @Controller
 public class CommitmentController {
 
-    private final NoteServices services;
+    private final CommitmentServices services;
 
-    public CommitmentController(NoteServices services) {
+    public CommitmentController(CommitmentServices services) {
         this.services = services;
     }
 

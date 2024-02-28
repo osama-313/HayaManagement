@@ -2,20 +2,19 @@ package com.haya.service;
 
 
 import com.haya.modles.Commitment;
-import com.haya.repository.NoteRepository;
+import com.haya.repository.CommitmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class NoteServices {
+public class CommitmentServices {
 
-    private NoteRepository repo;
+    private final CommitmentRepository repo;
 
-    public NoteServices(NoteRepository repo) {
+    public CommitmentServices(CommitmentRepository repo) {
         this.repo = repo;
     }
-
 
     // get all notes
     public List<Commitment> findAllNotes(){

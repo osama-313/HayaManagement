@@ -13,9 +13,11 @@ public class Commitment {
     @Column(name = "note_id" , updatable = false)
     private int id;
 
-    @Column(name = "From_to_When" )
-    private String fromToWhen;
+    @Column(name = "From_When" )
+    private String fromWhen;
 
+    @Column(name = "To_When" )
+    private String toWhen;
 
     @Column(name = "hours" )
     private int hours;
@@ -27,17 +29,17 @@ public class Commitment {
     @ManyToOne
     private User user;
 
-    public Commitment() {
-    }
-
-    public Commitment(int id, String fromToWhen, int hours, String note, User user) {
+    public Commitment(int id, String fromWhen, String toWhen, int hours, String note, User user) {
         this.id = id;
-        this.fromToWhen = fromToWhen;
+        this.fromWhen = fromWhen;
+        this.toWhen = toWhen;
         this.hours = hours;
         this.note = note;
         this.user = user;
     }
 
+    public Commitment() {
+    }
 
     public int getId() {
         return id;
@@ -47,12 +49,20 @@ public class Commitment {
         this.id = id;
     }
 
-    public String getFromToWhen() {
-        return fromToWhen;
+    public String getFromWhen() {
+        return fromWhen;
     }
 
-    public void setFromToWhen(String fromToWhen) {
-        this.fromToWhen = fromToWhen;
+    public void setFromWhen(String fromWhen) {
+        this.fromWhen = fromWhen;
+    }
+
+    public String getToWhen() {
+        return toWhen;
+    }
+
+    public void setToWhen(String toWhen) {
+        this.toWhen = toWhen;
     }
 
     public int getHours() {
@@ -78,6 +88,4 @@ public class Commitment {
     public void setUser(User user) {
         this.user = user;
     }
-
-
 }

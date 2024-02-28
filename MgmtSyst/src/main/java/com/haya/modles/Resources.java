@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 public class Resources {
 
     @Id
-    @GeneratedValue(generator = "role_id", strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "role_id", allocationSize = 1)
+    @GeneratedValue(generator = "Resource_id", strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "Resource_id", allocationSize = 1)
     @Column(name = "Resource_id" , updatable = false)
     private int id;
 
