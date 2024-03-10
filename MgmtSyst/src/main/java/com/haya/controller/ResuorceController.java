@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 @Controller
@@ -25,7 +26,7 @@ public class ResuorceController {
     }
 
     @PostMapping("/resource")
-    Resources insertResourse(Resources resource){
+    Resources insertResourse(@RequestBody Resources resource){
         return services.insertResource(resource);
     }
 

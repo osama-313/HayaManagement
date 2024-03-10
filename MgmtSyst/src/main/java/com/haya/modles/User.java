@@ -36,17 +36,17 @@ public class User {
     @Column(name = "age" , nullable = false)
     private int age;
 
+    @Column(name = "proficiency")
+    private String proficiency;
+
     @JoinColumn(name = "user_role" , nullable = false)
     @ManyToOne
     private Role role;
 
-
-
-
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String userName, String email, String password, int age, Role role) {
+    public User(int id, String firstName, String lastName, String userName, String email, String password, int age, String proficiency, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -54,6 +54,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.age = age;
+        this.proficiency = proficiency;
         this.role = role;
     }
 
@@ -113,6 +114,14 @@ public class User {
         this.age = age;
     }
 
+    public String getProficiency() {
+        return proficiency;
+    }
+
+    public void setProficiency(String proficiency) {
+        this.proficiency = proficiency;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -120,5 +129,4 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-
 }
