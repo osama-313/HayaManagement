@@ -52,17 +52,17 @@ public class UserServices {
 
         if (user != null) {
             // Update the existing customer with the provided data
-            user.setFirstName(user.getFirstName());
-            user.setLastName(user.getLastName());
-            user.setUserName(user.getUserName());
+            user.setFirstName(updatedUser.getFirstName());
+            user.setLastName(updatedUser.getLastName());
+            user.setUserName(updatedUser.getUserName());
             user.setEmail(updatedUser.getEmail()); // you can update email
-            // encode the udated password
+            // encode the updated password
             String encodedPassword = this.passwordEncoder.encode(updatedUser.getPassword());
             user.setPassword(encodedPassword); // you can update password
             //
             user.setAge(updatedUser.getAge()); // you can update age
             user.setProficiency(updatedUser.getProficiency()); // you can update proficiency
-            user.setRole(user.getRole()); // you can update role
+            user.setRole(updatedUser.getRole()); // you can update role
 
             return repo.save(user);
         } else {
