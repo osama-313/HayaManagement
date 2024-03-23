@@ -1,6 +1,7 @@
 package com.haya.service;
 
 import com.haya.modles.User;
+import com.haya.repository.TokenRepository;
 import com.haya.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,12 +14,14 @@ import java.util.List;
 public class UserServices {
 
     private UserRepository repo;
+    private TokenRepository tokenRepository;
 
     private PasswordEncoder passwordEncoder;
 
 
-    public UserServices(UserRepository repo, PasswordEncoder passwordEncoder) {
+    public UserServices(UserRepository repo, TokenRepository tokenRepository, PasswordEncoder passwordEncoder) {
         this.repo = repo;
+        this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -76,7 +79,8 @@ public class UserServices {
 
     // delete method
     public void delete(int id){
-         repo.deleteById(id);
+        tokenRepository.deleteTokensByUserId(id);
+        repo.deleteById(id);
     }
 
     // find User by ID

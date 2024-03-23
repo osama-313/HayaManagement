@@ -1,7 +1,9 @@
 package com.haya.repository;
 
 import com.haya.modles.Token;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -17,4 +19,9 @@ where t.user.id = :userId and t.loggedOut = false
     List<Token> findAllTokensByUser(Integer userId);
 
     Optional<Token> findByToken(String token);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Token t WHERE t.user.id = :userId")
+    void deleteTokensByUserId(Integer userId);
 }
