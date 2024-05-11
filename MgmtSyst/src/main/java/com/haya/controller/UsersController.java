@@ -51,6 +51,11 @@ public class UsersController {
     User findUserById(@PathVariable int id){
         return services.findUserById(id);
     }
+    // Find all Users
 
+    @GetMapping("/user/dash")
+    List<User> UserDashInfo(){
+        return services.UserDashInfo();
+    }
 
 }

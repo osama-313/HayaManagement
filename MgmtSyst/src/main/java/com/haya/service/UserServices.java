@@ -95,6 +95,10 @@ public class UserServices {
 
 
 
+// get users info for dashboard without any passwords
+public List<User> UserDashInfo(){
+    return repo.getDashbordInfoForUser();
+}
 
 
 
