@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: ${env.URL_DB}
-    username: ${env.username_DB}
-    password: ${env.password_DB}
+    url: ${URL_DB}
+    username: ${username_DB}
+    password: ${password_DB}
   jpa:
     hibernate:
       ddl-auto: update
