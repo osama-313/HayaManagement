@@ -1,9 +1,9 @@
 server:
-  port: 443  # Change this to 443 for HTTPS
+  port: 8081  # Change this to 443 for HTTPS
   ssl:
     key-store-type: PKCS12
     key-store: classpath:keystore.p12  # Ensure keystore.p12 is placed in src/main/resources
-    key-store-password: Hello@112233   # The password you set when creating the keystore
+    key-store-password: Hello@112233 # The password you set when creating the keystore
     key-alias: tomcat
 
 
