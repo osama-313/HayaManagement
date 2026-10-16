@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test-${random.uuid};MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+app:
+  jwt:
+    secret: dGVzdC1vbmx5LXNlY3JldC1rZXktd2l0aC1hdC1sZWFzdC0zMi1ieXRlcy1sb25nLTAxMjM0NTY3ODk=
+    expiration: 1h
+  bootstrap:
+    admin-user-name: root
+    admin-password: Root@12345
+    admin-email: root@example.com

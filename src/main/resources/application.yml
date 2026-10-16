@@ -1,0 +1,49 @@
+server:
+  port: ${PORT:8080}
+  # Honour X-Forwarded-* headers when running behind a TLS-terminating proxy / PaaS router.
+  forward-headers-strategy: framework
+  compression:
+    enabled: true
+
+spring:
+  application:
+    name: team-management-api
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+  api-docs:
+    enabled: ${SWAGGER_ENABLED:true}
+
+app:
+  jwt:
+    # Base64-encoded key, at least 256 bits: openssl rand -base64 48
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION:24h}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+  bootstrap:
+    admin-user-name: ${ADMIN_USERNAME:}
+    admin-password: ${ADMIN_PASSWORD:}
+    admin-email: ${ADMIN_EMAIL:}
+  demo-data:
+    enabled: ${DEMO_DATA:false}

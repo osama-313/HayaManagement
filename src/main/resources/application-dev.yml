@@ -1,0 +1,17 @@
+# Zero-setup profile: in-memory H2 database, demo data and a throw-away JWT key.
+# Run with:  ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+# Never use these values in production.
+spring:
+  datasource:
+    url: jdbc:h2:mem:teammgmt;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+app:
+  jwt:
+    secret: ZGV2LW9ubHktc2VjcmV0LWtleS1kby1ub3QtdXNlLWluLXByb2R1Y3Rpb24tMDEyMzQ1Njc4OQ==
+  demo-data:
+    enabled: true
